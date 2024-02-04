@@ -40,13 +40,17 @@ streamlit.header("The fruit load list contains: ")
 streamlit.dataframe(my_data_rows)
 
 
-st.header("The fruit load list contains:")
-st.dataframe(my_data_rows)
-add_my_fruit = st.text_input("Add your fruit:", "")
-if st.button("Add"):
-   streamlit.write('Thanks for adding', add_my_fruit)
-my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('from streamlit')")
 
-# Close Snowflake connection
-my_cnx.close()
+add_my_fruit = streamlit.text_input("Add your fruit:", "")
+if streamlit.button("Add Fruit"):
+    my_cur.execute(f"insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('{add_my_fruit}')")
+    streamlit.write('Thanks for adding', add_my_fruit)
+
+# Display the fruit load list from Snowflake
+my_cur.execute("select * from PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
+my_data_rows = my_cur.fetchall()
+st.header("The fruit load list contains: ")
+st.dataframe(my_data_rows)
+
+
 
