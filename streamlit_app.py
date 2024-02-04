@@ -40,6 +40,10 @@ streamlit.header("The fruit load list contains: ")
 streamlit.dataframe(my_data_rows)
 
 add_my_fruit = st.text_input("Add your fruit:", "")
-
-streamlit.write('Thanks for adding', add_my_fruit)
+if st.button("Add"):
+   streamlit.write('Thanks for adding', add_my_fruit)
 my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('from streamlit')")
+
+# Close Snowflake connection
+my_cnx.close()
+
