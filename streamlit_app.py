@@ -38,7 +38,7 @@ try:
 except URLError as e:
     streamlit.error() 
 
-streamlit.stop()
+
 #New Section to display fruityvice api response 
 streamlit.header('Fruityvice Fruit Advice!') try: 
 
@@ -68,7 +68,7 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 streamlit.dataframe(fruityvice_normalized)
 
 
-
+streamlit.stop()
 #import snowflake.connector
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
