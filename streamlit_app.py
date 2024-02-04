@@ -20,7 +20,12 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page
 streamlit.dataframe(fruits_to_show)
 
-
+# Add a button to load the fruit 
+if streamlit.button('Get Fruit List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    my_cnx.close()
+    streamlit.dataframe(my_data_rows) 
 
 def insert_row_snowflake(new_fruit):
     with my_cnx.cursor() as my_cur:
